@@ -15,6 +15,7 @@ Apollo is a Next Framework for Deep Learnig
 - [x] Easy use
 - [x] Fast
 - [x] Integrated
+- [x] High-Performance
 
 ## Get staterd
 
