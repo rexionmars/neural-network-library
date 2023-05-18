@@ -44,9 +44,13 @@ int main()
     float weight = rand_float() * 10.0f;
 
     float eps = 1e-3;
-    float distance_cost =  (cost(weight - eps) - cost(weight)) / eps;
-    weight -= distance_cost;
-    printf("%f\n", weight);
+    float rate = 1e-3;
+
+    printf("%f\n", cost(weight));
+
+    float distance_cost =  (cost(weight + eps) - cost(weight)) / eps;
+    weight -= rate * distance_cost;
+    printf("%f\n", cost(weight));
 
     return 0;
 }
