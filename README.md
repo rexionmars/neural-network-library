@@ -4,7 +4,7 @@
 ![](https://img.shields.io/github/issues/rexionmars/apollo-framework?color=pink)
 ![](https://img.shields.io/github/issues-pr/rexionmars/apollo-framework?color=orange)
 
-<img src="thumbnail/m1ain.jpg" alt="Snake logo">
+<img src="thumbnail/apollo.jpg" alt="Snake logo">
 This will be updated soon<br>
 
 ## What is APOLLO ?
