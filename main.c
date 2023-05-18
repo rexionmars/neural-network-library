@@ -2,11 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-// Temporary colors
-#define YWL "\033[0;33m"
-#define OFF "\033[0m"
-#define PRL "\033[0;35m"
-
 float train[][2] = {
     {0, 0},
     {1, 2},
@@ -30,12 +25,16 @@ int main()
     srand(69);
     float weight = rand_float() * 10.0f;
 
+    float result = 0.0f;
     for (size_t i = 0; i < train_count; i++) {
         float x = train[i][0];
         float y = x * weight;
+        float distance = y - train[i][1];
 
-        printf("ACTUAL: %s%f%s, EXPECTED: %s%f%s\n", YWL, y, OFF, PRL, train[i][0], OFF);
+        result += distance * distance;
     }
+    result /= train_count;
+    printf("%f\n", result);
 
     return 0;
 }
