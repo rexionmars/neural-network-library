@@ -9,6 +9,10 @@ float train[][2] = {
     {3, 6},
     {4, 8},
     {5, 10},
+    {6, 12},
+    {7, 14},
+    {8, 16},
+    {9, 18},
 };
 
 #define train_count sizeof(train) / sizeof(train[0])
@@ -18,13 +22,8 @@ float rand_float(void)
     return (float) rand() / (float) RAND_MAX;
 }
 
-int main()
+float cost(float weight)
 {
-    // Y = X * W
-    //srand(time(0));
-    srand(69);
-    float weight = rand_float() * 10.0f;
-
     float result = 0.0f;
     for (size_t i = 0; i < train_count; i++) {
         float x = train[i][0];
@@ -34,7 +33,20 @@ int main()
         result += distance * distance;
     }
     result /= train_count;
-    printf("%f\n", result);
+    return result;
+}
+
+int main()
+{
+    // Y = X * W
+    //srand(time(0));
+    srand(69);
+    float weight = rand_float() * 10.0f;
+
+    float eps = 1e-3;
+    float distance_cost =  (cost(weight - eps) - cost(weight)) / eps;
+    weight -= distance_cost;
+    printf("%f\n", weight);
 
     return 0;
 }
