@@ -50,7 +50,7 @@ int main()
     float eps = 1e-3;
     float rate = 1e-3;
 
-    for (size_t i = 0; i < 5000; ++i) {
+    for (size_t i = 0; i < 5 * 1000; ++i) {
         float cos = cost(weight, bias);
         float diference_weight =  (cost(weight + eps, bias) - cos) / eps;
         float diference_bias = (cost(weight, bias + eps) - cos) / eps;
