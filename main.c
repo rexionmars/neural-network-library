@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+// Temporary colors
+#define OFF "\033[0m"
+#define GREN "\033[0;32m"
+#define RED "\033[0;31m"
+
 float train[][2] = {
     {0, 0},
     {1, 2},
@@ -39,18 +44,19 @@ float cost(float weight)
 int main()
 {
     // Y = X * W
-    //srand(time(0));
-    srand(69);
+    srand(time(0));
     float weight = rand_float() * 10.0f;
 
     float eps = 1e-3;
     float rate = 1e-3;
 
-    printf("%f\n", cost(weight));
-
-    float distance_cost =  (cost(weight + eps) - cost(weight)) / eps;
-    weight -= rate * distance_cost;
-    printf("%f\n", cost(weight));
+    //printf("COST BEFORE TRAIN: %f\n", cost(weight));
+    for (size_t i = 0; i < 20; ++i) {
+        float distance_cost =  (cost(weight + eps) - cost(weight)) / eps;
+        weight -= rate * distance_cost;
+        printf("%sCOST = %f%s, WEIGHT = %f\n", RED, cost(weight), OFF, weight);
+    }
+    printf("\n%sWEIGHT: %f%s\n", GREN, weight, OFF);
 
     return 0;
 }
