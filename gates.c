@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
+
+// Sigmoid function
+// S(x) = 1 / 1 + e**-x = e**x / e**x + 1 = 1 - S(-x)
+float sigmoidf(float x)
+{
+    return 1.f / (1.f + expf(-x));
+}
 
 // OR gate
 float train[][3] = {
@@ -19,7 +27,7 @@ float cost(float w1, float w2)
         float x1 = train[i][0];
         float x2 = train[i][1];
 
-        float y = x1 * w1 + x2 * w2;
+        float y = sigmoidf(x1 * w1 + x2 * w2);
         float distance = y - train[i][2];
         result += distance * distance;
     }
@@ -41,7 +49,7 @@ int main(void)
     float eps = 1e-3;
     float rate = 1e-3;
 
-    for (size_t i = 0; i < 1 * 1000; ++i) {
+    for (size_t i = 0; i < 1 * 100; ++i) {
         float cos = cost(w1, w2);
         printf("Weight 1: %f, Weight 2: %f, COST: %f\n", w1, w2, cos);
         float diference_w1 = (cost(w1 + eps, w2) - cos) / eps;
