@@ -2,4 +2,5 @@
 
 set -xe
 
-clang -Wall -Wextra -o main main.c
+clang -Wall -Wextra -o core core.c -lm
+clang -Wall -Wextra -o gate gates.c -lm
