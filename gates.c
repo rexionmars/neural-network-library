@@ -3,6 +3,13 @@
 #include <time.h>
 #include <math.h>
 
+#define OFF "\033[0m"
+#define GREN "\033[0;32m"
+#define RED "\033[0;31m"
+#define YWL "\033[0;33m"
+#define BLU "\033[0;34m"
+#define CYN "\033[0;36m"
+
 // Sigmoid function
 // S(x) = 1 / 1 + e**-x = e**x / e**x + 1 = 1 - S(-x)
 float sigmoidf(float x)
@@ -42,14 +49,13 @@ float rand_float(void)
 
 int main(void)
 {
-    srand(69);
+    srand(time(0));
     float w1 = rand_float();
     float w2 = rand_float();
+    float eps = 1e-1;
+    float rate = 1e-1;
 
-    float eps = 1e-3;
-    float rate = 1e-3;
-
-    for (size_t i = 0; i < 1 * 100; ++i) {
+    for (size_t i = 0; i < 10000; ++i) {
         float cos = cost(w1, w2);
         printf("Weight 1: %f, Weight 2: %f, COST: %f\n", w1, w2, cos);
         float diference_w1 = (cost(w1 + eps, w2) - cos) / eps;
@@ -57,6 +63,13 @@ int main(void)
 
         w1 -= rate * diference_w1;
         w2 -= rate * diference_w2;
+    }
+    printf("\n%sWeight 1: %f, %sWeight 2: %f%s, COST: %f%s\n\n", YWL, w1, BLU, w2, RED, cost(w1, w2), OFF);
+
+    for (size_t i = 0; i < 2; ++i) {
+        for (size_t j = 0; j < 2; ++j) {
+            printf("%zu | %zu = %f\n", i, j, sigmoidf(i * w1 + j * w2));
+        }
     }
 
     return 0;
