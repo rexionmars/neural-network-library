@@ -19,15 +19,38 @@ float sigmoidf(float x)
     return 1.f / (1.f + expf(-x));
 }
 
-// OR gate
-float train[][3] = {
+typedef float sample[3];
+
+sample or_train[] = {
     {0, 0, 0},
     {1, 0, 1},
     {0, 1, 1},
     {1, 1, 1},
 };
 
-#define train_count sizeof(train) / sizeof(train[0])
+sample and_train[] = {
+    {0, 0, 0},
+    {1, 0, 0},
+    {0, 1, 0},
+    {1, 1, 1},
+};
+
+sample nand_train[] = {
+    {0, 0, 1},
+    {1, 0, 1},
+    {0, 1, 1},
+    {1, 1, 0},
+};
+
+sample xor_train[] = {
+    {0, 0, 0},
+    {1, 0, 1},
+    {0, 1, 1},
+    {1, 1, 0},
+};
+
+sample *train = xor_train;
+size_t train_count = 4;
 
 float cost(float w1, float w2, float bias)
 {
@@ -49,6 +72,18 @@ float rand_float(void)
     return (float) rand() / (float) RAND_MAX;
 }
 
+int xorg(void)
+{
+    // (x | y) & ~(x & y)
+    for (size_t x = 0; x < 2; ++x) {
+        for (size_t y = 0;y < 2; ++y) {
+            printf("%zu ^ %zu = %zu\n", x, y, (x | y) & (~(x&y)));
+        }
+    }
+
+    return 0;
+}
+
 int main(void)
 {
     srand(time(0));
@@ -59,9 +94,11 @@ int main(void)
     float eps = 1e-1;
     float rate = 1e-1;
 
-    for (size_t i = 0; i < 10000; ++i) {
+    // Train
+    for (size_t i = 0; i < 1*1000; ++i) {
         float cos = cost(w1, w2, bias);
         printf("Weight 1: %f, Weight 2: %f, BIAS = %f, COST: %f\n", w1, w2, bias, cos);
+        //printf("%f\n", cos);
         float diference_w1 = (cost(w1 + eps, w2, bias) - cos) / eps;
         float diference_w2 = (cost(w1, w2 + eps, bias) - cos) / eps;
         float diference_bias = (cost(w1, w2, bias + eps) - cos) / eps;
