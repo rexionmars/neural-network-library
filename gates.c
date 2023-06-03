@@ -95,7 +95,7 @@ int main(void)
     float rate = 1e-1;
 
     // Train
-    for (size_t i = 0; i < 1*1000; ++i) {
+    for (size_t i = 0; i < 100*1000; ++i) {
         float cos = cost(w1, w2, bias);
         printf("Weight 1: %f, Weight 2: %f, BIAS = %f, COST: %f\n", w1, w2, bias, cos);
         //printf("%f\n", cos);
