@@ -5,4 +5,4 @@
 
 ## Quick Start
 
-Use APOLLO Framework: https://github.com/rexionmars/apollo-framework
+Use cTorch Framework: https://github.com/rexionmars/ctorch
